@@ -4,10 +4,10 @@ var url = require("url");
 var googleWebApp = "google web app address";
 var reqBody = JSON.stringify({"key":"value"});
 
-function postData(){
+function postData(address){
   var options = {
-    hostname: url.parse(googleWebApp).hostname,
-    path: url.parse(googleWebApp).pathname,
+    hostname: url.parse(address).hostname,
+    path: url.parse(address).pathname,
     //port: 443, //https defaults to 443
     method: "POST",
     headers: {
@@ -16,8 +16,12 @@ function postData(){
     }
   };
   var req = https.request(options, function (res) {
-      //console.log("status code:", res.statusCode);
-      //console.log("headers:", res.headers);
+    //console.log("status code:", res.statusCode);
+    //console.log("headers:", res.headers);
+    if(response.statusCode == 302){
+      //status code 302 indicates a redirect
+      postData(res.headers.location);//handle redirect
+    }else{
       var responseString = "";
       res.on("data", function (data) {
           responseString += data;
@@ -27,6 +31,7 @@ function postData(){
           console.log(responseString); 
           // print to console when response ends
       });
+    }
   });
   req.on('error', function (e){
     console.error("problem with request: "+e.message);
@@ -34,4 +39,4 @@ function postData(){
   req.write(reqBody);
   req.end();
 }
-postData();
+postData(googleWebApp);
