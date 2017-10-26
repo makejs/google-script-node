@@ -12,7 +12,7 @@ function doPost(e) {
     return ContentService.createTextOutput(JSON.stringify(e.parameter));
 }
 
-var SSID = "google_sheet_key"
+var SSID = "google_spreadsheet_key"
 //create a sheet named Console for console logging
 var Console = new Object;
 Console.log = function(e){
