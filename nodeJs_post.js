@@ -6,8 +6,9 @@ var reqBody = JSON.stringify({"key":"value"});
 
 function postData(){
   var options = {
-    host: url.parse(googleWebApp).hostname,
+    hostname: url.parse(googleWebApp).hostname,
     path: url.parse(googleWebApp).pathname,
+    //port: 443, //https defaults to 443
     method: "POST",
     headers: {
       "Content-Type": "application/json"
