@@ -18,7 +18,7 @@ function postData(address){
   var req = https.request(options, function (res) {
     //console.log("status code:", res.statusCode);
     //console.log("headers:", res.headers);
-    if(response.statusCode == 302){
+    if(res.statusCode == 302){
       //status code 302 indicates a redirect
       postData(res.headers.location);//handle redirect
     }else{
@@ -34,7 +34,7 @@ function postData(address){
     }
   });
   req.on('error', function (e){
-    console.error("problem with request: "+e.message);
+    console.error("problem with request:",e.message);
   });
   req.write(reqBody);
   req.end();
